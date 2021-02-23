@@ -26,13 +26,13 @@ import static org.junit.Assert.*;
 public class VolunteerControllerTest {
 
 
-    private static Volunteer volunteer = VolunteerFactory.builderVolunteer("Selr","Mngadi",0745664245,911451256);
-    private static String SECURITY_USERNAME ="User";
-    private static String SECURITY_PASSWORD ="12345";
+    private static Volunteer volunteer = VolunteerFactory.builderVolunteer("Mncedisi","Mngadi",749263455,962423225);
+    private static String SECURITY_USERNAME ="admin";
+    private static String SECURITY_PASSWORD ="admin123";
 
     @Autowired
     private TestRestTemplate testRestTemplate;
-    private String baseUrl = "http://localhost:8888/foodparcel/volunteer/";
+    private String baseUrl = "http://localhost:8888/volunteer/";
 
 
 
@@ -74,12 +74,12 @@ public class VolunteerControllerTest {
     public void c_update(){
 
         System.out.println("Before update: "+volunteer);
-        Volunteer update = new Volunteer.Builder().copy(volunteer).setFirstName("Bongani").build();
+        Volunteer update = new Volunteer.Builder().copy(volunteer).setDiliveriesMade(2).build();
         String url = baseUrl+"update";
         ResponseEntity<Volunteer> responseEntity = testRestTemplate
                 .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
                 .postForEntity(url, update, Volunteer.class);
-        assertNotNull(responseEntity.getBody());
+       assertNotNull(responseEntity.getBody());
         assertEquals(volunteer.getVolunteerNum(), responseEntity.getBody().getVolunteerNum());
         System.out.println("After update: "+responseEntity.getBody());
 
@@ -115,6 +115,7 @@ public class VolunteerControllerTest {
 
     }
 
+    @Ignore
     @Test
     public void f_delete(){
 
